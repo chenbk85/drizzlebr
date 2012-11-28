@@ -1,0 +1,3 @@
+AX_LIBEVENT2
+AS_IF([test "$ax_cv_libevent2" = "no"],
+  AC_MSG_WARN([Your version of libevent is too old. json_server requires v 2.0 or newer: not building json_server.]))
