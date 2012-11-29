@@ -57,7 +57,7 @@ unittests_unittests_SOURCES = \
 			      unittests/utf8_test.cc
 
 unittests_unittests_LDADD= \
-			   $(filter-out drizzled/main.$(OBJEXT), ${am_drizzled_drizzled_OBJECTS}) \
+			   $(filter-out drizzled/drizzled_drizzled-main.$(OBJEXT), ${am_drizzled_drizzled_OBJECTS}) \
 			   ${drizzled_drizzled_LDADD} \
 			   libdrizzle-1.0/libdrizzle.la
 unittests_unittests_LDADD+= $(BOOST_UNIT_TEST_FRAMEWORK_LIBS) 
