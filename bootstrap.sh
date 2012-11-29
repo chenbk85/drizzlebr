@@ -763,9 +763,42 @@ function run ()
   eval $@ $ARGS
 } 
 
+function list_targets()
+{
+
+	echo "$0  targets are these [not only these below]" 
+	echo -e "\tself        : test boostrap.sh itself"
+	echo -e "\tgdb         : build gdb prof execution"
+	echo -e "\tclean_op    : make clean for checkin like VCS"
+	echo -e "\tautoreconf  : remake the configure and Makefile"
+	echo -e "\tinstall-system : install compiled bin"
+	echo -e "\tconfigure   : to make the configure and Makefile"
+	echo -e "\tdistcheck   : distribute check"
+	echo -e "\tcheck       : check compiling"
+	echo -e "\tsnapshot    : compress tar ball the source code"
+	echo -e "\tmingw       : compile in win32"
+	echo -e "\tuniverse    : compile for valgrind snapshot distcheck install-system"
+	echo -e "\tjenkins     : for compile and make the upgrade package for rpm or deb"
+	echo -e "\tdistclean   : make clean after install"
+	echo -e "\tmaintainer-clean : clean all the things not check into repository"
+	echo -e "\tinstall     : install on the system"
+	echo -e "\tall         : all in the Makefile"
+	echo -e "\ttest-*      : test case "
+	echo -e "\tvalgrind    : make valgrind lib attach execution "
+	echo -e "\tvalgrind-*  : part package valgrind attach execution"
+	echo -e "\tdist        : distribution for the ball like rpm or deb"
+}
+
+function help_message()
+{
+	echo "$0 [options] target"
+	echo -e "\t-h to display this help information"
+	echo -e "\t-l to display the targets"
+}
+
 parse_command_line_options ()
 {
-  local SHORTOPTS=':apcmt:dvh'
+  local SHORTOPTS=':apcmt:dvhl'
 
   nassert MAKE_TARGET
 
@@ -796,8 +829,8 @@ parse_command_line_options ()
         enable_debug
         ;;
       h) # help
-        echo "bootstrap.sh [options] optional_target ..."
-        exit
+		help_message
+        exit 0
         ;;
       v) # verbose
         VERBOSE_OPTION=true
@@ -807,6 +840,10 @@ parse_command_line_options ()
         echo "Option -$OPTARG requires an argument." >&2
         exit 1
         ;;
+	  l)
+		list_targets
+		exit 0
+		;;
       *)
         echo "$0: error - unrecognized option $1" 1>&2
         exit 1
@@ -1029,6 +1066,8 @@ make_for_autoreconf ()
 
   assert_no_file 'Makefile'
 }
+
+
 
 check_make_target()
 {
